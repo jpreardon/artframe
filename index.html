@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<title>artframe</title>
+	</head>
+	<body>
+		<style>
+			body {
+				background-color: #000000;
+			}
+
+			html, body, #wrapper {
+			   height: 100%;
+			   width: 100%;
+			   margin: 0;
+			   padding: 0;
+			   border: 0;
+			}
+
+			#wrapper td {
+			   vertical-align: middle;
+			   text-align: center;
+			}
+
+			p.title {
+				color: rgba(230, 230, 230, .5);
+				margin: 3px;
+				font-family: helvetica, "sans serif";
+			}
+
+		</style>
+		<div>
+			<p class="title">artframe</p>
+			<table id="wrapper">
+				<tr>
+					<td id="image-container"></td>
+				</tr>
+			</table>
+		</div>
+		<script>
+			var endPoint = "http://localhost:8000/cgi-bin/artframe.py"
+
+			/* Put images in an array */
+			var images
+
+
+
+			getData(endPoint, function(response) {
+			  if(response != 0) {
+			    images = JSON.parse(response)
+			  }
+			})
+
+			function changeImage() {
+				var randomNum = Math.floor((Math.random() * images.length));
+				document.getElementById("image-container").innerHTML = "<img src='" + images[randomNum] + "' />"
+			}
+
+			setInterval(changeImage, 5000)
+
+			function getData(url, callback) {
+  				var xhr = new XMLHttpRequest()
+
+  				xhr.onreadystatechange = function() {
+    				if (this.readyState == 4 && this.status == 200) {
+      					callback(this.responseText)
+    				} 
+  				}
+
+  				xhr.open("GET", url, true)
+  				xhr.send()
+			}
+		</script>
+	</body>
+</html>
