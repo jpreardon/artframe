@@ -21,18 +21,18 @@
 			   text-align: center;
 			}
 
-			.title, #image-container {
+			.title, #image-container, .caption {
 				color: rgba(230, 230, 230, .25);
 				font-family: helvetica, "sans serif";
 			}
 
-			.title {
+			.title, .caption {
 				text-decoration: none;
 				margin: 5px;
 				display: inline-block;
 			}
 
-			.title:hover {
+			.title:hover, a.caption:hover {
 				text-decoration: underline;
 			}
 
@@ -42,6 +42,9 @@
 			<table id="wrapper">
 				<tr>
 					<td id="image-container">loading...</td>
+				</tr>
+				<tr>
+					<td id="info-container"></td>
 				</tr>
 			</table>
 		</div>
@@ -63,7 +66,8 @@
 
 			function changeImage() {
 				var randomNum = Math.floor((Math.random() * images.length));
-				document.getElementById("image-container").innerHTML = "<img src='" + images[randomNum] + "' />"
+				document.getElementById("image-container").innerHTML = "<img src='" + images[randomNum].imagePath + "' />"
+				document.getElementById("info-container").innerHTML = "<p class='caption'>" + images[randomNum].description + ": <a href='" + images[randomNum].link + "' target='_blank' class='caption' >" + images[randomNum].title + "</a></p>"
 			}
 
 			function getData(url, callback) {

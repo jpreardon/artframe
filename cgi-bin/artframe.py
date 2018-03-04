@@ -8,7 +8,7 @@ import json
 feeds = ['http://formandalign.tumblr.com/rss', 'http://traceloops.tumblr.com/rss']
 
 # List for image paths
-imagePaths = []
+imageList = []
 
 # For each feed, parse it, and return all of the images
 for feed in feeds:
@@ -19,9 +19,10 @@ for feed in feeds:
 		images = re.findall(r'<img src="(.*gif)" />', item.description)
 
 		for image in images:
-			imagePaths.append(image)
+			feedinfo = {'description':  myFeed.feed.subtitle, 'title': item.title, 'link': item.link, 'imagePath': image}
+			imageList.append(feedinfo)
 
 # Return JSON
 output = "Content-Type: application/json\n\n"
-output = output + json.dumps(imagePaths)
+output = output + json.dumps(imageList)
 print output
