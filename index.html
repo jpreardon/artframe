@@ -21,41 +21,50 @@
 			   text-align: center;
 			}
 
-			p.title {
-				color: rgba(230, 230, 230, .5);
-				margin: 3px;
+			.title, #image-container {
+				color: rgba(230, 230, 230, .25);
 				font-family: helvetica, "sans serif";
+			}
+
+			.title {
+				text-decoration: none;
+				margin: 5px;
+				display: inline-block;
+			}
+
+			.title:hover {
+				text-decoration: underline;
 			}
 
 		</style>
 		<div>
-			<p class="title">artframe</p>
+			<a href="https://github.com/jpreardon/artframe" class="title">artframe</a>
 			<table id="wrapper">
 				<tr>
-					<td id="image-container"></td>
+					<td id="image-container">loading...</td>
 				</tr>
 			</table>
 		</div>
 		<script>
-			var endPoint = "http://localhost:8000/cgi-bin/artframe.py"
+			// Where to get the image list
+			var endPoint = "http://jpreardon.com/artframe/cgi-bin/artframe.py"
 
-			/* Put images in an array */
+			// An array for image paths
 			var images
 
-
-
-			getData(endPoint, function(response) {
-			  if(response != 0) {
-			    images = JSON.parse(response)
-			  }
-			})
+			// Grab the images
+			function getImagePaths() {
+				getData(endPoint, function(response) {
+				  if(response != 0) {
+				    images = JSON.parse(response)
+				  }
+				})
+			}
 
 			function changeImage() {
 				var randomNum = Math.floor((Math.random() * images.length));
 				document.getElementById("image-container").innerHTML = "<img src='" + images[randomNum] + "' />"
 			}
-
-			setInterval(changeImage, 5000)
 
 			function getData(url, callback) {
   				var xhr = new XMLHttpRequest()
@@ -69,6 +78,16 @@
   				xhr.open("GET", url, true)
   				xhr.send()
 			}
+
+			// Initialize the page
+			getImagePaths()
+
+			// Change image every x seconds
+			setInterval(changeImage, 10000)
+
+			// Refresh the image list every hour
+			setInterval(getImagePaths, (60*60*1000))
+
 		</script>
 	</body>
 </html>
