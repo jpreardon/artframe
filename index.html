@@ -29,16 +29,18 @@
 			.title, .caption {
 				text-decoration: none;
 				margin: 5px;
-				display: inline-block;
 			}
 
 			.title:hover, a.caption:hover {
 				text-decoration: underline;
 			}
 
+			.art {
+				max-height: 80%;
+			}
+
 		</style>
 		<div>
-			<a href="https://github.com/jpreardon/artframe" class="title">artframe</a>
 			<table id="wrapper">
 				<tr>
 					<td id="image-container">loading...</td>
@@ -66,8 +68,10 @@
 
 			function changeImage() {
 				var randomNum = Math.floor((Math.random() * images.length));
-				document.getElementById("image-container").innerHTML = "<img src='" + images[randomNum].imagePath + "' />"
-				document.getElementById("info-container").innerHTML = "<p class='caption'>" + images[randomNum].description + ": <a href='" + images[randomNum].link + "' target='_blank' class='caption' >" + images[randomNum].title + "</a></p>"
+				var image = "<img class='art' src='" + images[randomNum].imagePath + "' />"
+				var caption = "<p class='caption'>" + images[randomNum].description + ": <a href='" + images[randomNum].link + "' target='_blank' class='caption' >" + images[randomNum].title + "</a></p>"
+				var title = "<a href='https://github.com/jpreardon/artframe' class='title'>artframe</a>"
+				document.getElementById("image-container").innerHTML = image + caption
 			}
 
 			function getData(url, callback) {

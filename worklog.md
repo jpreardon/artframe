@@ -6,6 +6,8 @@ This works ok, but it doesn't give the artists credit, and you don't know where 
 
 I added some extra elements to JSON output and added those to the HTML. It could use some styling, but for now, it works.
 
+I tweaked the max size of the images a bit so it would work on this little raspi touch display.
+
 ## 2018-03-03
 
 Basically, we want a photo frame type thing that cycles through images that have been posted to one or more RSS feed (from Tumblr at the moment).
